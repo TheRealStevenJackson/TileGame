@@ -1,0 +1,28 @@
+<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Simple 2D character sprite - pixel art style -->
+  
+  <!-- Body (torso) -->
+  <rect x="20" y="32" width="24" height="20" fill="#4A90E2" stroke="#2E5C8A" stroke-width="1"/>
+  
+  <!-- Head -->
+  <circle cx="32" cy="16" r="10" fill="#FFDBAC" stroke="#D4A574" stroke-width="1"/>
+  
+  <!-- Eyes -->
+  <circle cx="28" cy="14" r="2" fill="#000000"/>
+  <circle cx="36" cy="14" r="2" fill="#000000"/>
+  
+  <!-- Mouth -->
+  <ellipse cx="32" cy="18" rx="3" ry="2" fill="#000000"/>
+  
+  <!-- Arms -->
+  <rect x="10" y="34" width="8" height="16" fill="#4A90E2" stroke="#2E5C8A" stroke-width="1"/>
+  <rect x="46" y="34" width="8" height="16" fill="#4A90E2" stroke="#2E5C8A" stroke-width="1"/>
+  
+  <!-- Legs -->
+  <rect x="22" y="52" width="8" height="12" fill="#2E5C8A" stroke="#1A3A5A" stroke-width="1"/>
+  <rect x="34" y="52" width="8" height="12" fill="#2E5C8A" stroke="#1A3A5A" stroke-width="1"/>
+  
+  <!-- Simple hat/cap -->
+  <rect x="24" y="8" width="16" height="6" fill="#E74C3C" stroke="#C0392B" stroke-width="1"/>
+  <ellipse cx="32" cy="8" rx="8" ry="4" fill="#E74C3C"/>
+</svg>
