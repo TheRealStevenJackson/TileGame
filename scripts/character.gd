@@ -21,7 +21,7 @@ func _ready():
 	sprite_3d = Sprite3D.new()
 	
 	# Load the sprite texture
-	var texture = load("res://character_sprite.svg")
+	var texture = load("res://assets/character_sprite.svg")
 	if texture:
 		sprite_3d.texture = texture
 	else:
