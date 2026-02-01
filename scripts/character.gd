@@ -17,6 +17,15 @@ func _ready():
 	if current_tile_path:
 		current_tile = get_node(current_tile_path) as GameTile
 	
+	# If tile not found, automatically find the only GameTile in the scene
+	if not current_tile:
+		var parent = get_parent()
+		if parent:
+			for child in parent.get_children():
+				if child is GameTile:
+					current_tile = child
+					break
+	
 	# Create Sprite3D node
 	sprite_3d = Sprite3D.new()
 	
