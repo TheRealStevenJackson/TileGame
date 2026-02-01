@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card1a7"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://p5u5ec8r6j0k" path="res://sprites/items/sprite_13_5.tres" id="2_teuma"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Short Circuit"
 description = "Redirect power. Your way."
+texture_slice = ExtResource("2_teuma")
 cost = 2
 physical_damage_gen = 1
 mana_gen = 1

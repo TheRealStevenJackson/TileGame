@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card024"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://xucagv4cdksu" path="res://sprites/items/sprite_13_13.tres" id="2_adl5r"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Combat Rig"
 description = "Armor and attitude."
+texture_slice = ExtResource("2_adl5r")
 cost = 3
 physical_damage_gen = 3
 mana_gen = 1

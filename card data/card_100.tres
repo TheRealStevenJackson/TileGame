@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card100"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://lbq8h0qerp76" path="res://sprites/items/sprite_20_9.tres" id="2_s2elt"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Triple Threat"
 description = "Fight. Trade. Power up."
+texture_slice = ExtResource("2_s2elt")
 cost = 5
 physical_damage_gen = 2
 money_gen = 2

@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card003"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cnu0od5v0in25" path="res://sprites/items/sprite_11_10.tres" id="2_64irl"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Battery Scrap"
 description = "Enough juice for one trick."
+texture_slice = ExtResource("2_64irl")
 mana_gen = 1

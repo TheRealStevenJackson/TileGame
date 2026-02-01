@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card1a3"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cdli621f6oung" path="res://sprites/items/sprite_9_13.tres" id="2_qt7gl"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Finder's Fee"
 description = "You found it. You keep some."
+texture_slice = ExtResource("2_qt7gl")
 cost = 2
 money_gen = 2

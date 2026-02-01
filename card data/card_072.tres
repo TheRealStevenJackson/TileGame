@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card072"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://ci3pnc06t0f1f" path="res://sprites/items/sprite_17_8.tres" id="2_rqrlo"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Reactor Raid"
 description = "Take what you need."
+texture_slice = ExtResource("2_rqrlo")
 cost = 5
 money_gen = 1
 mana_gen = 5

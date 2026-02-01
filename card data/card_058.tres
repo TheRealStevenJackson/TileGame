@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card058"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://c4ltjpgaeogbn" path="res://sprites/items/sprite_14_7.tres" id="2_exqiv"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Core Shard"
 description = "Pure energy. Handle with care."
+texture_slice = ExtResource("2_exqiv")
 cost = 5
 mana_gen = 6

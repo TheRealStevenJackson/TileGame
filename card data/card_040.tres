@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card040"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cheptylmke7dr" path="res://sprites/items/sprite_17_13.tres" id="2_0svi1"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Enforcer"
 description = "Hit hard. Hit twice."
+texture_slice = ExtResource("2_0svi1")
 cost = 4
 physical_damage_gen = 4
 mana_gen = 1

@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card007"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://c6piq2wg5m67w" path="res://sprites/items/sprite_17_11.tres" id="2_hqo1y"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Stun Baton"
 description = "Crackles. Drones hate it."
+texture_slice = ExtResource("2_hqo1y")
 cost = 1
 physical_damage_gen = 1
 mana_gen = 1

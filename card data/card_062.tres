@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card062"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://brl8mo24su7fb" path="res://sprites/items/sprite_15_8.tres" id="2_buvlh"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Siege Breaker"
 description = "Nothing stays closed."
+texture_slice = ExtResource("2_buvlh")
 cost = 5
 physical_damage_gen = 5

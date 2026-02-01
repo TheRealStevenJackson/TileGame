@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card082"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://hqevw0eqkkdl" path="res://sprites/items/sprite_14_4.tres" id="2_1fgym"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Emergency Core"
 description = "Last resort. Full power."
+texture_slice = ExtResource("2_1fgym")
 cost = 5
 mana_gen = 5

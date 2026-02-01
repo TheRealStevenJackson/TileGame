@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card027"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://ci3pnc06t0f1f" path="res://sprites/items/sprite_17_8.tres" id="2_vcyw3"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Heavy Wrench"
 description = "One swing. One less drone."
+texture_slice = ExtResource("2_vcyw3")
 cost = 3
 physical_damage_gen = 4

@@ -10,6 +10,7 @@ enum ResourceType {
 @export var title: String = ""
 @export_multiline var description: String = ""
 @export var image: Texture2D
+@export var texture_slice: Texture2D # This will hold the AtlasTexture
 @export var cost: int = 0
 @export var physical_damage_gen: int = 0
 @export var money_gen: int = 0

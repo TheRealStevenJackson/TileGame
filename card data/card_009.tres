@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card01a"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dtgsjpfbv77e3" path="res://sprites/items/sprite_22_14.tres" id="2_o4617"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Brawler"
 description = "You learned to throw punches in the ring."
+texture_slice = ExtResource("2_o4617")
 cost = 1
 physical_damage_gen = 2

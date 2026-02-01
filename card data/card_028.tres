@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card028"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://1n3m0wxqooym" path="res://sprites/items/sprite_17_2.tres" id="2_qvo3e"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Pilfer"
 description = "Quick fingers. Full pockets."
+texture_slice = ExtResource("2_qvo3e")
 cost = 3
 money_gen = 3

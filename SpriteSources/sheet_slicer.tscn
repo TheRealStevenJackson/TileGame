@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bhhsglsngcqq2"]
+
+[ext_resource type="Script" uid="uid://dt1lxhapwuc4t" path="res://SpriteSources/Sheet_Slicer.gd" id="1_j2l5r"]
+[ext_resource type="Texture2D" uid="uid://d0k03vwjwygc4" path="res://SpriteSources/tiles_items.png" id="2_0bpga"]
+
+[node name="SheetSlicer" type="Node2D" unique_id=473053668]
+script = ExtResource("1_j2l5r")
+source_sheet = ExtResource("2_0bpga")

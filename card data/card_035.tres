@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card035"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://celuricjlqqbp" path="res://sprites/items/sprite_10_1.tres" id="2_nta5g"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Smuggler's Run"
 description = "Get in. Get paid. Get out."
+texture_slice = ExtResource("2_nta5g")
 cost = 3
 money_gen = 3

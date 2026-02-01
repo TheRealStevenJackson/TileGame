@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card060"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cb3l53amdjln1" path="res://sprites/items/sprite_15_9.tres" id="2_jgiml"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Kingpin"
 description = "The yard answers to you."
+texture_slice = ExtResource("2_jgiml")
 cost = 5
 money_gen = 5
 mana_gen = 1

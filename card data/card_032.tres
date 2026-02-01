@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card032"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bgwyedkf77pfa" path="res://sprites/items/sprite_17_1.tres" id="2_sqryw"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Barter"
 description = "Trade up on the fly."
+texture_slice = ExtResource("2_sqryw")
 cost = 3
 money_gen = 2
 mana_gen = 2

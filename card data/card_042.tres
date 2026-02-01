@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card042"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://c8aa408k5rnb6" path="res://sprites/items/sprite_17_7.tres" id="2_6t8rs"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Surge Pack"
 description = "Instant power. No questions."
+texture_slice = ExtResource("2_6t8rs")
 cost = 4
 mana_gen = 4

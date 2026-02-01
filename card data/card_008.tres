@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card008"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bqeaeyfb6o0l7" path="res://sprites/items/sprite_5_11.tres" id="2_clmxv"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Loot Pouch"
 description = "Grab and go."
+texture_slice = ExtResource("2_clmxv")
 cost = 1
 money_gen = 1
 mana_gen = 1

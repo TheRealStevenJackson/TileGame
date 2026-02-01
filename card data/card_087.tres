@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card087"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://joy6rx50pq6i" path="res://sprites/items/sprite_9_10.tres" id="2_1t1eq"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Tip-Off"
 description = "A lead. A payout."
+texture_slice = ExtResource("2_1t1eq")
 cost = 2
 money_gen = 2

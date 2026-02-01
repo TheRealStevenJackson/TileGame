@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card050"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://8i055rrtarud" path="res://sprites/items/sprite_10_11.tres" id="2_h6smk"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Rigged Generator"
 description = "Steal power. Leave a mess."
+texture_slice = ExtResource("2_h6smk")
 cost = 4
 physical_damage_gen = 1
 mana_gen = 4

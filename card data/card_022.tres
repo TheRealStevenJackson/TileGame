@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card022"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cjaqdwfepa8lb" path="res://sprites/items/sprite_18_10.tres" id="2_amg5w"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Black Market"
 description = "Sell anything. No questions."
+texture_slice = ExtResource("2_amg5w")
 cost = 3
 money_gen = 4

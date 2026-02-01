@@ -25,8 +25,9 @@ func update_ui():
 	vbox.get_node("Title").text = data.title
 	vbox.get_node("Description").text = data.description
 	var ill := vbox.get_node_or_null("TextureRect")
-	if ill and data.image:
-		ill.texture = data.image
+	if ill and data.texture_slice:
+		ill.texture = data.texture_slice
+		ill.texture_filter = Control.TEXTURE_FILTER_NEAREST
 	var cost_label := vbox.get_node_or_null("CostLabel")
 	if cost_label:
 		cost_label.text = str(data.cost)

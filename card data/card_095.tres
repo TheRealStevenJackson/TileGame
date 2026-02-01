@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card1a5"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://t8ngtr2xngks" path="res://sprites/items/sprite_11_2.tres" id="2_p8wrj"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Sweep"
 description = "Clear the room. Take the loot."
+texture_slice = ExtResource("2_p8wrj")
 cost = 2
 physical_damage_gen = 1
 money_gen = 1

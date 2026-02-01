@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card085"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://c15qhgwup7a43" path="res://sprites/items/sprite_6_12.tres" id="2_y7pv8"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Siphon"
 description = "Drain a line. Fill your cell."
+texture_slice = ExtResource("2_y7pv8")
 cost = 2
 mana_gen = 2

@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card014"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://055ekpg1rom2" path="res://sprites/items/sprite_17_12.tres" id="2_7ist4"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Shock Glove"
 description = "Up close and personal."
+texture_slice = ExtResource("2_7ist4")
 cost = 2
 physical_damage_gen = 2
 mana_gen = 1

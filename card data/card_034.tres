@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card034"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cjqctm6svaulh" path="res://sprites/items/sprite_16_8.tres" id="2_7emk5"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Brute"
 description = "Sometimes you just hit things."
+texture_slice = ExtResource("2_7emk5")
 cost = 3
 physical_damage_gen = 3
 money_gen = 1

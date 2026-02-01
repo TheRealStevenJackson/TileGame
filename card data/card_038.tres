@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card038"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://c6piq2wg5m67w" path="res://sprites/items/sprite_17_11.tres" id="2_inpga"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Vault Codes"
 description = "Worth every credit you paid."
+texture_slice = ExtResource("2_inpga")
 cost = 4
 money_gen = 5

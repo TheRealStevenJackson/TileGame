@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card1a2"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bx06hfpqg3m13" path="res://sprites/items/sprite_3_8.tres" id="2_0v0gc"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Pipe"
 description = "Heavy pipe. Heavy swing."
+texture_slice = ExtResource("2_0v0gc")
 cost = 2
 physical_damage_gen = 2

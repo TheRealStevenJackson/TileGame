@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card011"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://crhof5hf6aoyd" path="res://sprites/items/sprite_4_14.tres" id="2_m4e71"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Plasma Cutter"
 description = "Cuts metal. And other things."
+texture_slice = ExtResource("2_m4e71")
 cost = 2
 physical_damage_gen = 3
