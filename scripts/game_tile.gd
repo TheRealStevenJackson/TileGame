@@ -1,10 +1,8 @@
 extends Node3D
 class_name GameTile
 
-# Static 2D tile registry: Dictionary<Vector2, GameTile>
-# Key is grid coordinates (x, z), value is the GameTile instance
-static var tile_registry: Dictionary = {}
-static var tile_spacing: float = 1.2  # Spacing between tiles
+# Reference to the Map instance that manages the tile registry
+var map: Map
 
 # Grid coordinates for this tile
 var grid_x: int = 0
@@ -29,6 +27,11 @@ var back_arrow_hovered: bool = false
 var front_arrow_hovered: bool = false
 
 func _ready():
+	# Get the Map singleton instance
+	map = GameMap
+	if not map:
+		print("Warning: Map singleton not found")
+	
 	# Create a flat cube mesh
 	var mesh_instance = MeshInstance3D.new()
 	var array_mesh = ArrayMesh.new()
@@ -310,11 +313,14 @@ func on_arrow_click(direction: String):
 			new_grid_z -= 1  # -Z direction
 	
 	# Check if a tile already exists at this grid position
-	var grid_key = Vector2(new_grid_x, new_grid_z)
-	if tile_registry.has(grid_key):
+	if not map:
+		print("Error: Map instance not found")
+		return
+	
+	var existing_tile = map.get_tile_at(new_grid_x, new_grid_z)
+	if existing_tile:
 		print("Tile already exists at grid position (", new_grid_x, ", ", new_grid_z, ") - not creating duplicate")
 		# Move character to existing tile instead of creating a new one
-		var existing_tile = tile_registry[grid_key]
 		var character = _find_character_in_scene()
 		if character:
 			character.move_to_tile(existing_tile, 0.5)
@@ -323,13 +329,14 @@ func on_arrow_click(direction: String):
 	# No tile exists at this position, so create a new one
 	# Calculate new tile position based on grid coordinates
 	var new_tile_position = Vector3(
-		new_grid_x * tile_spacing,
+		new_grid_x * map.tile_spacing,
 		global_position.y,  # Keep same Y level
-		new_grid_z * tile_spacing
+		new_grid_z * map.tile_spacing
 	)
 	
 	# Create new GameTile instance
 	var new_tile = GameTile.new()
+	new_tile.map = GameMap  # Set map reference to singleton so new tile can register itself
 	new_tile.grid_x = new_grid_x
 	new_tile.grid_z = new_grid_z
 	new_tile.global_position = new_tile_position
@@ -350,38 +357,22 @@ func on_arrow_click(direction: String):
 		character.move_to_tile(new_tile, 0.5)  # 0.5 second animation
 
 func register_tile():
-	# Register this tile in the 2D registry using grid coordinates
-	# Calculate grid coordinates from world position (position is source of truth)
-	grid_x = int(round(global_position.x / tile_spacing))
-	grid_z = int(round(global_position.z / tile_spacing))
-	
-	var grid_key = Vector2(grid_x, grid_z)
-	tile_registry[grid_key] = self
-	print("Registered tile at grid (", grid_x, ", ", grid_z, ")")
+	# Register this tile in the Map's 2D registry
+	if map:
+		map.register_tile(self)
+	else:
+		print("Warning: Cannot register tile - Map instance not found")
 
 func unregister_tile():
-	# Unregister this tile from the registry
-	var grid_key = Vector2(grid_x, grid_z)
-	if tile_registry.has(grid_key) and tile_registry[grid_key] == self:
-		tile_registry.erase(grid_key)
-		print("Unregistered tile at grid (", grid_x, ", ", grid_z, ")")
+	# Unregister this tile from the Map's registry
+	if map:
+		map.unregister_tile(self)
+	else:
+		print("Warning: Cannot unregister tile - Map instance not found")
 
 func _exit_tree():
 	# Clean up: unregister tile when removed from scene
 	unregister_tile()
-
-static func get_tile_at(grid_x: int, grid_z: int) -> GameTile:
-	# Get tile at specific grid coordinates
-	var grid_key = Vector2(grid_x, grid_z)
-	if tile_registry.has(grid_key):
-		return tile_registry[grid_key]
-	return null
-
-static func get_tile_at_position(world_pos: Vector3) -> GameTile:
-	# Get tile at world position by converting to grid coordinates
-	var grid_x = int(round(world_pos.x / tile_spacing))
-	var grid_z = int(round(world_pos.z / tile_spacing))
-	return get_tile_at(grid_x, grid_z)
 
 func _find_character_in_scene() -> Character:
 	# Find the Character node in the scene tree

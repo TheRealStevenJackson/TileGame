@@ -14,7 +14,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0, -1.2)
 script = ExtResource("3_character")
 current_tile_path = NodePath("../GameTile")
 
+[node name="FogOfWarContainer" type="Node3D" parent="."]
+
 [node name="Camera3D" type="Camera3D" parent="."]
 script = ExtResource("2_camera_controller")
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 3, 3)
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 3, 1.5)
 current = true
