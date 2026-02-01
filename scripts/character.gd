@@ -17,6 +17,15 @@ func _ready():
 	if current_tile_path:
 		current_tile = get_node(current_tile_path) as GameTile
 	
+	# If tile not found, automatically find the only GameTile in the scene
+	if not current_tile:
+		var parent = get_parent()
+		if parent:
+			for child in parent.get_children():
+				if child is GameTile:
+					current_tile = child
+					break
+	
 	# Create Sprite3D node
 	sprite_3d = Sprite3D.new()
 	
@@ -65,6 +74,29 @@ func update_tile_arrows():
 	
 	# Update previous tile reference
 	previous_tile = current_tile
+
+func move_to_tile(tile: GameTile, duration: float = 0.5):
+	# Smoothly animate the character to a new tile
+	if not tile:
+		return
+	
+	# Update tile references
+	previous_tile = current_tile
+	current_tile = tile
+	
+	# Calculate target position (center of tile, slightly above)
+	var target_position = tile.global_position
+	target_position.y = tile.global_position.y + 0.1
+	
+	# Create a tween for smooth animation
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(self, "global_position", target_position, duration)
+	
+	# Update arrow visibility after movement completes
+	await tween.finished
+	update_tile_arrows()
 
 func _process(delta):
 	# Optional: Add character movement logic here
