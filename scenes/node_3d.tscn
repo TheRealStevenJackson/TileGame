@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://d0jtb7tuxdjjc"]
+
+[ext_resource type="Script" path="res://scripts/game_tile.gd" id="1_game_tile"]
+[ext_resource type="Script" path="res://scripts/camera_controller.gd" id="2_camera_controller"]
+[ext_resource type="Script" path="res://scripts/character.gd" id="3_character"]
+
+[node name="Node3D" type="Node3D" unique_id=2001126673]
+
+[node name="GameTile" type="Node3D" parent="."]
+script = ExtResource("1_game_tile")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0, -1.2)
+
+[node name="Character" type="Node3D" parent="."]
+script = ExtResource("3_character")
+current_tile_path = NodePath("../GameTile")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+script = ExtResource("2_camera_controller")
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 3, 3)
+current = true
