@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card063"]
+
+[ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://CardData.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+title = "Vault Heist"
+description = "The big score."
+cost = 5
+physical_damage_gen = 0
+money_gen = 5
+mana_gen = 0

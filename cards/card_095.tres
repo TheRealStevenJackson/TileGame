@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card095"]
+
+[ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://CardData.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+title = "Sweep"
+description = "Clear the room. Take the loot."
+cost = 2
+physical_damage_gen = 1
+money_gen = 1
+mana_gen = 0
