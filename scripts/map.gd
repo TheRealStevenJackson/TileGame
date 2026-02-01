@@ -71,23 +71,37 @@ func unregister_fog_of_war(grid_x: int, grid_z: int):
 		print("Unregistered fog of war at grid (", grid_x, ", ", grid_z, ")")
 
 func create_fog_of_war_around(grid_x: int, grid_z: int, parent_node: Node):
-	# Create fog of war tiles in a ring between 4 and 10 spaces away from the character
-	# This creates a donut-shaped area of fog around the character
-	var min_radius = 2
+	# Create fog of war tiles from 0 to max_radius spaces away from the character
+	# Fog within visibility_radius is created but made invisible
+	var visibility_radius = 1.9  # Fog within this radius will be invisible
 	var max_radius = 10
+	
+	# Create fog at character's current location (always invisible)
+	if not get_fog_of_war_at(grid_x, grid_z):
+		var fog_at_character = FogOfWar.new()
+		fog_at_character.initial_visible = false
+		parent_node.add_child(fog_at_character)
+		var world_x = grid_x * tile_spacing
+		var world_z = grid_z * tile_spacing
+		fog_at_character.global_position = Vector3(world_x, 0, world_z)
+		register_fog_of_war(fog_at_character, grid_x, grid_z)
+		print("Created fog of war at character location grid (", grid_x, ", ", grid_z, ") world pos: ", fog_at_character.global_position)
 	
 	# Iterate through all positions in the square area
 	for x in range(grid_x - max_radius, grid_x + max_radius + 1):
 		for z in range(grid_z - max_radius, grid_z + max_radius + 1):
+			# Skip character's location (already handled above)
+			if x == grid_x and z == grid_z:
+				continue
+			
 			# Calculate distance from character position
 			var dx = x - grid_x
 			var dz = z - grid_z
 			var distance_squared = dx * dx + dz * dz
-			var min_dist_squared = min_radius * min_radius
 			var max_dist_squared = max_radius * max_radius
 			
-			# Only create fog if distance is between min_radius and max_radius
-			if distance_squared < min_dist_squared or distance_squared > max_dist_squared:
+			# Only create fog if distance is within max_radius
+			if distance_squared > max_dist_squared:
 				continue
 			
 			# Skip if fog already exists at this position
@@ -104,6 +118,10 @@ func create_fog_of_war_around(grid_x: int, grid_z: int, parent_node: Node):
 			# Calculate world position from grid coordinates
 			var world_x = x * tile_spacing
 			var world_z = z * tile_spacing
+			
+			# Set initial visibility based on distance from character
+			var visibility_dist_squared = visibility_radius * visibility_radius
+			fog.initial_visible = distance_squared > visibility_dist_squared
 			
 			# Add to scene tree first (so _ready() can be called)
 			parent_node.add_child(fog)

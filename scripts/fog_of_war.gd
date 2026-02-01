@@ -7,6 +7,9 @@ var cloud_sprite: Sprite3D
 # Track if fog is currently fading
 var is_fading: bool = false
 
+# Initial visibility state (set before adding to scene tree)
+var initial_visible: bool = true
+
 # Height offset above the character
 # Character is at tile.y + 0.1 (base) + 0.3 (sprite) = 0.4 total
 # Position fog just above that, at around 0.5-0.6 units above tile
@@ -41,8 +44,8 @@ func _ready():
 	# Position fog at height_offset (default 0.5) above tile surface
 	cloud_sprite.position.y = height_offset
 	
-	# Ensure sprite is visible and fully opaque
-	cloud_sprite.visible = true
+	# Set initial visibility and opacity based on initial_visible property
+	cloud_sprite.visible = initial_visible
 	cloud_sprite.modulate = Color.WHITE  # Initialize to full opacity
 	
 	print("Fog of war created at position: ", global_position, " sprite at y: ", cloud_sprite.position.y)
