@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card1aa"]
+
+[ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+title = "Knuckleduster"
+description = "Old school. Still works."
+cost = 2
+physical_damage_gen = 2
+money_gen = 0
+mana_gen = 0

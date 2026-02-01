@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dkj0l56hunu7o"]
+
+[ext_resource type="Texture2D" uid="uid://d0k03vwjwygc4" path="res://SpriteSources/tiles_items.png" id="2_ojsv8"]
+
+[node name="SpriteIcons" type="Node2D" unique_id=300359789]
+
+[node name="Hammer" type="Sprite2D" parent="." unique_id=789152142]
+texture_filter = 1
+texture_repeat = 1
+texture = ExtResource("2_ojsv8")
+region_enabled = true
+region_rect = Rect2(128, 160, 16, 16)
+
+[node name="Money" type="Sprite2D" parent="." unique_id=1736761205]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, 52)
+texture = ExtResource("2_ojsv8")
+region_enabled = true
+region_rect = Rect2(96, 64, 16, 16)
+
+[node name="Mana" type="Sprite2D" parent="." unique_id=1649887706]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, 26)
+texture = ExtResource("2_ojsv8")
+region_enabled = true
+region_rect = Rect2(112, 16, 16, 16)

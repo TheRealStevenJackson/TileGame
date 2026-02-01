@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card1ba"]
+
+[ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+title = "Trade Route"
+description = "Steady credits. Steady risk."
+cost = 4
+physical_damage_gen = 0
+money_gen = 3
+mana_gen = 1
