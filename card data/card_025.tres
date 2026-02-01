@@ -7,6 +7,5 @@ script = ExtResource("1_script")
 title = "Fence"
 description = "Moves product fast. Takes a cut."
 cost = 3
-physical_damage_gen = 0
 money_gen = 3
 mana_gen = 1

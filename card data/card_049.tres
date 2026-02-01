@@ -7,6 +7,5 @@ script = ExtResource("1_script")
 title = "Scrap Baron"
 description = "You own the yard."
 cost = 4
-physical_damage_gen = 0
 money_gen = 4
 mana_gen = 1

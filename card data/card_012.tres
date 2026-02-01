@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Cred Stick"
 description = "Someone left their account open."
 cost = 2
-physical_damage_gen = 0
 money_gen = 3
-mana_gen = 0

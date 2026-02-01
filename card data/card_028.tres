@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Pilfer"
 description = "Quick fingers. Full pockets."
 cost = 3
-physical_damage_gen = 0
 money_gen = 3
-mana_gen = 0

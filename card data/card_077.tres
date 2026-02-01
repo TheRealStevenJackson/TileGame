@@ -8,5 +8,4 @@ title = "Plasma Fist"
 description = "Close-range devastation."
 cost = 5
 physical_damage_gen = 4
-money_gen = 0
 mana_gen = 2

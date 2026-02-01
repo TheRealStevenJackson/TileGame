@@ -8,5 +8,4 @@ title = "Arc Tool"
 description = "Tech and teeth."
 cost = 3
 physical_damage_gen = 2
-money_gen = 0
 mana_gen = 2

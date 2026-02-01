@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Overdrive"
 description = "Push past the red line."
 cost = 5
-physical_damage_gen = 0
-money_gen = 0
 mana_gen = 5

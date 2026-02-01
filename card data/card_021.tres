@@ -8,5 +8,3 @@ title = "Drone Whacker"
 description = "Designed for exactly this."
 cost = 3
 physical_damage_gen = 3
-money_gen = 0
-mana_gen = 0

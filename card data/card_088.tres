@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Jury-Rig"
 description = "Make it work. Once."
 cost = 2
-physical_damage_gen = 0
-money_gen = 0
 mana_gen = 2

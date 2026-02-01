@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Fusion Cell"
 description = "Military grade. Stolen grade."
 cost = 4
-physical_damage_gen = 0
-money_gen = 0
 mana_gen = 5

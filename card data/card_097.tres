@@ -8,5 +8,4 @@ title = "Short Circuit"
 description = "Redirect power. Your way."
 cost = 2
 physical_damage_gen = 1
-money_gen = 0
 mana_gen = 1

@@ -7,6 +7,5 @@ script = ExtResource("1_script")
 title = "Bribe"
 description = "Credits smooth the path."
 cost = 2
-physical_damage_gen = 0
 money_gen = 2
 mana_gen = 1

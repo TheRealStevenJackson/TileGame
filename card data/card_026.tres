@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Emergency Power"
 description = "Bypass safeties. Get juice."
 cost = 3
-physical_damage_gen = 0
-money_gen = 0
 mana_gen = 3

@@ -1,12 +1,11 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://card001"]
 
 [ext_resource type="Script" uid="uid://bj2ta87epuasu" path="res://Card Scripts/CardData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://b54ah5d866aqt" path="res://generated_card_images/card_001.png" id="1_u8crm"]
 
 [resource]
 script = ExtResource("1_script")
 title = "Rust Knife"
 description = "Jury-rigged blade. Better than nothing."
-cost = 0
+image = ExtResource("1_u8crm")
 physical_damage_gen = 1
-money_gen = 0
-mana_gen = 0

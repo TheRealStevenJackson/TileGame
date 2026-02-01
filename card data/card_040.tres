@@ -8,5 +8,4 @@ title = "Enforcer"
 description = "Hit hard. Hit twice."
 cost = 4
 physical_damage_gen = 4
-money_gen = 0
 mana_gen = 1

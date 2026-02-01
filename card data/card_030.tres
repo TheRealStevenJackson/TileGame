@@ -7,6 +7,5 @@ script = ExtResource("1_script")
 title = "Bulk Sale"
 description = "Move volume. Get paid."
 cost = 3
-physical_damage_gen = 0
 money_gen = 3
 mana_gen = 1

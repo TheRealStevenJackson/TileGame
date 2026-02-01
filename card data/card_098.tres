@@ -9,4 +9,3 @@ description = "Close quarters. No mercy."
 cost = 4
 physical_damage_gen = 3
 money_gen = 1
-mana_gen = 0

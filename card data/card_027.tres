@@ -8,5 +8,3 @@ title = "Heavy Wrench"
 description = "One swing. One less drone."
 cost = 3
 physical_damage_gen = 4
-money_gen = 0
-mana_gen = 0

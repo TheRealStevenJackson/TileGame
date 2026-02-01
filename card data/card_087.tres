@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Tip-Off"
 description = "A lead. A payout."
 cost = 2
-physical_damage_gen = 0
 money_gen = 2
-mana_gen = 0

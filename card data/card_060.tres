@@ -7,6 +7,5 @@ script = ExtResource("1_script")
 title = "Kingpin"
 description = "The yard answers to you."
 cost = 5
-physical_damage_gen = 0
 money_gen = 5
 mana_gen = 1

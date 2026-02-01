@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Black Market"
 description = "Sell anything. No questions."
 cost = 3
-physical_damage_gen = 0
 money_gen = 4
-mana_gen = 0

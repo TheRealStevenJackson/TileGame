@@ -7,6 +7,5 @@ script = ExtResource("1_script")
 title = "Trade Route"
 description = "Steady credits. Steady risk."
 cost = 4
-physical_damage_gen = 0
 money_gen = 3
 mana_gen = 1

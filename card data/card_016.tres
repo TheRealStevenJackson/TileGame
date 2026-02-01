@@ -8,5 +8,4 @@ title = "Overcharge"
 description = "Push the system. It might push back."
 cost = 2
 physical_damage_gen = 1
-money_gen = 0
 mana_gen = 2

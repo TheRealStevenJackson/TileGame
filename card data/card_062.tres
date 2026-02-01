@@ -8,5 +8,3 @@ title = "Siege Breaker"
 description = "Nothing stays closed."
 cost = 5
 physical_damage_gen = 5
-money_gen = 0
-mana_gen = 0

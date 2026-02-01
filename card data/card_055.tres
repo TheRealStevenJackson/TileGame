@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Reactor Tap"
 description = "Dangerous. Effective."
 cost = 4
-physical_damage_gen = 0
-money_gen = 0
 mana_gen = 5

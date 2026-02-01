@@ -9,4 +9,3 @@ description = "Rage pays in scrap."
 cost = 5
 physical_damage_gen = 4
 money_gen = 1
-mana_gen = 0

@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Loot Run"
 description = "One more crate. One more credit."
 cost = 5
-physical_damage_gen = 0
 money_gen = 5
-mana_gen = 0

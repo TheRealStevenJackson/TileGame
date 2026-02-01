@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Finder's Fee"
 description = "You found it. You keep some."
 cost = 2
-physical_damage_gen = 0
 money_gen = 2
-mana_gen = 0

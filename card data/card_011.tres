@@ -8,5 +8,3 @@ title = "Plasma Cutter"
 description = "Cuts metal. And other things."
 cost = 2
 physical_damage_gen = 3
-money_gen = 0
-mana_gen = 0

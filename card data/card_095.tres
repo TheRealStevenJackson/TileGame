@@ -9,4 +9,3 @@ description = "Clear the room. Take the loot."
 cost = 2
 physical_damage_gen = 1
 money_gen = 1
-mana_gen = 0

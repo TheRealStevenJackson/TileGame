@@ -8,5 +8,3 @@ title = "Breach Hammer"
 description = "For when locks won't do."
 cost = 4
 physical_damage_gen = 4
-money_gen = 0
-mana_gen = 0

@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Vault Heist"
 description = "The big score."
 cost = 5
-physical_damage_gen = 0
 money_gen = 5
-mana_gen = 0

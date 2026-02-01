@@ -8,5 +8,4 @@ title = "EMP Knuckle"
 description = "Short range. Big spark."
 cost = 4
 physical_damage_gen = 3
-money_gen = 0
 mana_gen = 2

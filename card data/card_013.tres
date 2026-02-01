@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Capacitor"
 description = "Stores a surge for your gear."
 cost = 2
-physical_damage_gen = 0
-money_gen = 0
 mana_gen = 3

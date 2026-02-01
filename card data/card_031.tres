@@ -9,4 +9,3 @@ description = "Advance and strike."
 cost = 3
 physical_damage_gen = 2
 money_gen = 1
-mana_gen = 0

@@ -8,5 +8,3 @@ title = "Wrench"
 description = "Heavy. Good for bolts and skulls."
 cost = 1
 physical_damage_gen = 2
-money_gen = 0
-mana_gen = 0

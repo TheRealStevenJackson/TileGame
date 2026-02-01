@@ -8,5 +8,4 @@ title = "Volt Fist"
 description = "Punch with power."
 cost = 5
 physical_damage_gen = 3
-money_gen = 0
 mana_gen = 3

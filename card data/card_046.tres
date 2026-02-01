@@ -8,5 +8,4 @@ title = "Shock and Awe"
 description = "Stun. Strike. Loot."
 cost = 4
 physical_damage_gen = 3
-money_gen = 0
 mana_gen = 2

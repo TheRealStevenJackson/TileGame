@@ -7,6 +7,5 @@ script = ExtResource("1_script")
 title = "Cartel Contact"
 description = "They pay top credit."
 cost = 5
-physical_damage_gen = 0
 money_gen = 4
 mana_gen = 2

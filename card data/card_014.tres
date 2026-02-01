@@ -8,5 +8,4 @@ title = "Shock Glove"
 description = "Up close and personal."
 cost = 2
 physical_damage_gen = 2
-money_gen = 0
 mana_gen = 1

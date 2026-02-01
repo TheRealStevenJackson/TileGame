@@ -8,5 +8,4 @@ title = "Stun Baton"
 description = "Crackles. Drones hate it."
 cost = 1
 physical_damage_gen = 1
-money_gen = 0
 mana_gen = 1

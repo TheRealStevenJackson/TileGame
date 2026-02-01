@@ -7,6 +7,5 @@ script = ExtResource("1_script")
 title = "Backup Cell"
 description = "Never run dry."
 cost = 2
-physical_damage_gen = 0
 money_gen = 1
 mana_gen = 2

@@ -9,4 +9,3 @@ description = "Classic. Opens crates and heads."
 cost = 2
 physical_damage_gen = 2
 money_gen = 1
-mana_gen = 0

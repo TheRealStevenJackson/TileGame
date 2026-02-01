@@ -8,5 +8,4 @@ title = "Rigged Generator"
 description = "Steal power. Leave a mess."
 cost = 4
 physical_damage_gen = 1
-money_gen = 0
 mana_gen = 4

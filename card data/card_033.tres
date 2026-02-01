@@ -8,5 +8,4 @@ title = "Tesla Coil"
 description = "Chain lightning in a can."
 cost = 3
 physical_damage_gen = 2
-money_gen = 0
 mana_gen = 2

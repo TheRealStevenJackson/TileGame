@@ -6,7 +6,4 @@
 script = ExtResource("1_script")
 title = "Battery Scrap"
 description = "Enough juice for one trick."
-cost = 0
-physical_damage_gen = 0
-money_gen = 0
 mana_gen = 1

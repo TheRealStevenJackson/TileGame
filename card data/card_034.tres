@@ -9,4 +9,3 @@ description = "Sometimes you just hit things."
 cost = 3
 physical_damage_gen = 3
 money_gen = 1
-mana_gen = 0

@@ -1,7 +1,8 @@
 extends MarginContainer
 
-## Assign in inspector or leave null to use res://ResourceIcons.tres
-@export var resource_icons: ResourceIcons
+## Assign in inspector or leave null to use res://ResourceIcons.tres.
+## ResourceIcons (extends Sprite2D) holds icon refs with region_rect for sprite sheets.
+@export var resource_icons: Variant
 
 # This allows you to drag and drop a .tres file into the inspector
 @export var data: CardData:
@@ -10,10 +11,9 @@ extends MarginContainer
 		if is_inside_tree():
 			update_ui()
 
-var _icons: ResourceIcons
+var _icons: Variant
 
 func _ready():
-	_icons = resource_icons
 	update_ui()
 
 func update_ui():
@@ -36,21 +36,13 @@ func update_ui():
 		if cost_node:
 			cost_node.text = str(data.cost)
 	var gen_container := vbox.get_node_or_null("GenContainer")
-	if gen_container and _icons:
-		_set_gen_row(gen_container.get_node_or_null("PhysicalDamageRow"), data.physical_damage_gen, _icons.icon_physical_damage)
-		_set_gen_row(gen_container.get_node_or_null("MoneyRow"), data.money_gen, _icons.icon_money)
-		_set_gen_row(gen_container.get_node_or_null("ManaRow"), data.mana_gen, _icons.icon_mana)
-	else:
-		var gen_label := vbox.get_node_or_null("GenLabel")
-		if gen_label:
-			var parts: Array[String] = []
-			if data.physical_damage_gen > 0:
-				parts.append("+%d Physical Damage" % data.physical_damage_gen)
-			if data.money_gen > 0:
-				parts.append("+%d Money" % data.money_gen)
-			if data.mana_gen > 0:
-				parts.append("+%d Mana" % data.mana_gen)
-			gen_label.text = ", ".join(parts) if parts.size() > 0 else ""
+	if gen_container:
+		var icon_pd = _icons.icon_physical_damage if _icons else null
+		var icon_money = _icons.icon_money if _icons else null
+		var icon_mana = _icons.icon_mana if _icons else null
+		_set_gen_row(gen_container.get_node_or_null("PhysicalDamageRow"), data.physical_damage_gen, icon_pd)
+		_set_gen_row(gen_container.get_node_or_null("MoneyRow"), data.money_gen, icon_money)
+		_set_gen_row(gen_container.get_node_or_null("ManaRow"), data.mana_gen, icon_mana)
 
 func _set_gen_row(row: Control, value: int, icon: Variant) -> void:
 	if not row:
@@ -58,17 +50,23 @@ func _set_gen_row(row: Control, value: int, icon: Variant) -> void:
 	row.visible = value > 0
 	if value <= 0:
 		return
-	var tex: Texture2D = null
-	if icon is Texture2D:
-		tex = icon
-	elif icon is Sprite2D and icon.texture:
-		tex = icon.texture
 	var icon_node := row.get_node_or_null("Icon")
-	if icon_node and tex:
-		if icon_node is TextureRect:
-			icon_node.texture = tex
-		elif icon_node is Sprite2D:
-			icon_node.texture = tex
+	if not icon_node:
+		icon_node = row.get_node_or_null("Sprite2D")
+	if icon_node:
+		if icon is Texture2D:
+			if icon_node is TextureRect:
+				icon_node.texture = icon
+			elif icon_node is Sprite2D:
+				icon_node.texture = icon
+		elif icon is Sprite2D and icon.texture:
+			# Use Sprite2D so we keep region_rect for sprite sheets
+			if icon_node is TextureRect:
+				icon_node.texture = icon.texture
+			elif icon_node is Sprite2D:
+				icon_node.texture = icon.texture
+				icon_node.region_enabled = icon.region_enabled
+				icon_node.region_rect = icon.region_rect
 	var value_label := row.get_node_or_null("Value")
 	if value_label:
 		value_label.text = "+%d" % value

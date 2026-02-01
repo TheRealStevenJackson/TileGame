@@ -45,6 +45,7 @@ custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
 text = "Description"
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="GenContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=200000001]
@@ -58,7 +59,7 @@ layout_mode = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="PanelContainer/VBoxContainer/GenContainer/PhysicalDamageRow" unique_id=963315349]
 texture_filter = 1
-position = Vector2(-15, 10)
+position = Vector2(-12, 10)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_qh7ip")
 region_enabled = true
@@ -75,7 +76,7 @@ layout_mode = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="PanelContainer/VBoxContainer/GenContainer/MoneyRow" unique_id=576557202]
 texture_filter = 1
-position = Vector2(-13, 10)
+position = Vector2(-10, 10)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_qh7ip")
 region_enabled = true
@@ -92,7 +93,7 @@ layout_mode = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="PanelContainer/VBoxContainer/GenContainer/ManaRow" unique_id=571163762]
 texture_filter = 1
-position = Vector2(-13, 9)
+position = Vector2(-12, 9)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_qh7ip")
 region_enabled = true

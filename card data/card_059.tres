@@ -8,5 +8,4 @@ title = "Warmaster"
 description = "Born for the scrap."
 cost = 5
 physical_damage_gen = 5
-money_gen = 0
 mana_gen = 1

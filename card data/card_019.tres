@@ -9,4 +9,3 @@ description = "Seal doors or burn through them."
 cost = 2
 physical_damage_gen = 2
 money_gen = 1
-mana_gen = 0

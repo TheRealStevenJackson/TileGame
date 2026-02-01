@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Power Cell"
 description = "Stolen from a dead drone."
 cost = 1
-physical_damage_gen = 0
-money_gen = 0
 mana_gen = 2

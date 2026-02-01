@@ -8,5 +8,3 @@ title = "Monofilament Saw"
 description = "Cuts anything. Everything."
 cost = 5
 physical_damage_gen = 5
-money_gen = 0
-mana_gen = 0

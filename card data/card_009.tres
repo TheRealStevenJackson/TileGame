@@ -8,5 +8,3 @@ title = "Brawler"
 description = "You learned to throw punches in the ring."
 cost = 1
 physical_damage_gen = 2
-money_gen = 0
-mana_gen = 0

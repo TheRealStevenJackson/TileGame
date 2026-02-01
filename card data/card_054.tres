@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Bulk Buyer"
 description = "They take it all. You take the credits."
 cost = 4
-physical_damage_gen = 0
 money_gen = 4
-mana_gen = 0

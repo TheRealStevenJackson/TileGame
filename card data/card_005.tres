@@ -7,6 +7,4 @@ script = ExtResource("1_script")
 title = "Salvage Permit"
 description = "Barely legal. Opens some doors."
 cost = 1
-physical_damage_gen = 0
 money_gen = 2
-mana_gen = 0
