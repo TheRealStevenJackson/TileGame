@@ -93,7 +93,7 @@ func _ready():
 
 func create_side_arrows(width: float, depth: float, height: float):
 	# Load arrow texture
-	var arrow_texture = load("res://arrow_sprite.svg")
+	var arrow_texture = load("res://assets/arrow_sprite.svg")
 	if not arrow_texture:
 		print("Warning: Could not load arrow_sprite.svg")
 		return
