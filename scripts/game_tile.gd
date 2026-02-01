@@ -22,6 +22,12 @@ var left_arrow_area: Area3D
 var back_arrow_area: Area3D
 var front_arrow_area: Area3D
 
+# Track hover state for each arrow
+var right_arrow_hovered: bool = false
+var left_arrow_hovered: bool = false
+var back_arrow_hovered: bool = false
+var front_arrow_hovered: bool = false
+
 func _ready():
 	# Create a flat cube mesh
 	var mesh_instance = MeshInstance3D.new()
@@ -178,24 +184,46 @@ func set_arrows_visible(visible: bool):
 		back_arrow.visible = visible
 	if front_arrow:
 		front_arrow.visible = visible
+	
+	# Enable/disable input areas based on arrow visibility
+	# This ensures clicks only work when arrows are visible
+	if right_arrow_area:
+		right_arrow_area.input_ray_pickable = visible
+	if left_arrow_area:
+		left_arrow_area.input_ray_pickable = visible
+	if back_arrow_area:
+		back_arrow_area.input_ray_pickable = visible
+	if front_arrow_area:
+		front_arrow_area.input_ray_pickable = visible
 
 func setup_arrow_click_area(arrow: Sprite3D, direction: String):
 	# Create an Area3D for click detection
 	var area = Area3D.new()
 	area.name = direction + "_arrow_area"
 	
+	# Enable input ray picking - CRITICAL for input_event to work
+	area.input_ray_pickable = true
+	
 	# Create a collision shape (box shape to match arrow size)
 	var collision_shape = CollisionShape3D.new()
 	var box_shape = BoxShape3D.new()
-	box_shape.size = Vector3(0.3, 0.3, 0.01)  # Match arrow sprite size
+	# Make the collision shape larger and thicker for easier clicking
+	# Arrow sprite is rotated -90 degrees on X axis, so it's flat in X-Z plane
+	box_shape.size = Vector3(0.5, 0.5, 0.1)  # Larger and thicker for better click detection
 	collision_shape.shape = box_shape
 	area.add_child(collision_shape)
 	
-	# Position the area at the arrow's position
+	# Position and rotate the area to match the arrow
 	area.position = arrow.position
+	area.rotation_degrees = arrow.rotation_degrees
 	
-	# Connect input event signal
+	# Connect input event signal for clicks
 	area.input_event.connect(_on_arrow_clicked.bind(direction))
+	
+	# Connect mouse hover signals for color change
+	# Note: These work on Area3D when input_ray_pickable is true
+	area.mouse_entered.connect(_on_arrow_mouse_entered.bind(direction))
+	area.mouse_exited.connect(_on_arrow_mouse_exited.bind(direction))
 	
 	# Add to scene
 	add_child(area)
@@ -211,12 +239,60 @@ func setup_arrow_click_area(arrow: Sprite3D, direction: String):
 		"front":
 			front_arrow_area = area
 	
-	# Area3D is always ready for input events (monitoring/monitorable don't affect input_event)
+	# Ensure the area is always ready for input (even when arrow is hidden)
+	area.visible = true  # Area should always be visible for input detection
 
 func _on_arrow_clicked(camera: Node, event: InputEvent, position: Vector3, normal: Vector3, shape_idx: int, direction: String):
 	# Only handle mouse button clicks
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		on_arrow_click(direction)
+		# Verify the arrow is visible before processing click
+		var arrow_visible = false
+		match direction:
+			"right":
+				arrow_visible = right_arrow and right_arrow.visible
+			"left":
+				arrow_visible = left_arrow and left_arrow.visible
+			"back":
+				arrow_visible = back_arrow and back_arrow.visible
+			"front":
+				arrow_visible = front_arrow and front_arrow.visible
+		
+		if arrow_visible:
+			print("Arrow clicked: ", direction)  # Debug output
+			on_arrow_click(direction)
+		else:
+			print("Arrow click ignored - arrow not visible: ", direction)
+
+func _on_arrow_mouse_entered(direction: String):
+	# Change arrow color to pink when mouse hovers over it
+	_set_arrow_hovered(direction, true)
+
+func _on_arrow_mouse_exited(direction: String):
+	# Change arrow color back to white when mouse leaves
+	_set_arrow_hovered(direction, false)
+
+func _set_arrow_hovered(direction: String, hovered: bool):
+	# Update hover state and arrow color
+	var arrow: Sprite3D = null
+	match direction:
+		"right":
+			arrow = right_arrow
+			right_arrow_hovered = hovered
+		"left":
+			arrow = left_arrow
+			left_arrow_hovered = hovered
+		"back":
+			arrow = back_arrow
+			back_arrow_hovered = hovered
+		"front":
+			arrow = front_arrow
+			front_arrow_hovered = hovered
+	
+	if arrow and arrow.visible:
+		if hovered:
+			arrow.modulate = Color.PINK
+		else:
+			arrow.modulate = Color.WHITE
 
 func on_arrow_click(direction: String):
 	# Calculate grid coordinates for the new tile
