@@ -53,6 +53,9 @@ func _ready():
 	
 	# Center character on its current tile
 	center_on_tile()
+	
+	# Create fog of war surrounding the character's starting position
+	create_surrounding_fog_of_war()
 
 func center_on_tile():
 	# Center the character on the tile it references
@@ -88,6 +91,51 @@ func move_to_tile(tile: GameTile, duration: float = 0.5):
 	var target_position = tile.global_position
 	target_position.y = tile.global_position.y + 0.1
 	
+	# Get the Map singleton to find nearby fog of war
+	var map = GameMap
+	if map:
+		# Calculate grid coordinates of the new tile position
+		var grid_x = int(round(tile.global_position.x / map.tile_spacing))
+		var grid_z = int(round(tile.global_position.z / map.tile_spacing))
+		
+		# Find all fog of war within min_radius of 2
+		var min_radius = 1.9
+		var fade_in_radius = 3.9
+		var fog_to_fade_out = []
+		var fog_to_fade_in = []
+		
+		# Iterate through all fog of war in the registry
+		for grid_key in map.fog_of_war_registry:
+			var fog = map.fog_of_war_registry[grid_key]
+			if not fog or not is_instance_valid(fog):
+				continue
+			
+			# Calculate distance from character's new position
+			var fog_grid_x = int(grid_key.x)
+			var fog_grid_z = int(grid_key.y)
+			var dx = fog_grid_x - grid_x
+			var dz = fog_grid_z - grid_z
+			var distance_squared = dx * dx + dz * dz
+			var min_dist_squared = min_radius * min_radius
+			var fade_in_dist_squared = fade_in_radius * fade_in_radius
+			
+			# If fog is within min_radius, add it to the fade out list
+			if distance_squared <= min_dist_squared:
+				fog_to_fade_out.append(fog)
+			# If fog is at radius 3 or more, add it to the fade in list
+			elif distance_squared >= fade_in_dist_squared:
+				fog_to_fade_in.append(fog)
+		
+		# Animate all nearby fog of war fading out
+		for fog in fog_to_fade_out:
+			if is_instance_valid(fog):
+				fog.fade_out(duration)
+		
+		# Animate all distant fog of war fading in
+		for fog in fog_to_fade_in:
+			if is_instance_valid(fog):
+				fog.fade_in(duration)
+	
 	# Create a tween for smooth animation
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
@@ -97,6 +145,33 @@ func move_to_tile(tile: GameTile, duration: float = 0.5):
 	# Update arrow visibility after movement completes
 	await tween.finished
 	update_tile_arrows()
+
+func create_surrounding_fog_of_war():
+	# Create fog of war tiles surrounding the character's current position
+	if not current_tile:
+		return
+	
+	# Get the Map singleton
+	var map = GameMap
+	if not map:
+		print("Warning: Cannot create fog of war - Map singleton not found")
+		return
+	
+	# Calculate grid coordinates from the tile's world position
+	# This is more reliable than using grid_x/grid_z which might not be set yet
+	var grid_x = int(round(current_tile.global_position.x / map.tile_spacing))
+	var grid_z = int(round(current_tile.global_position.z / map.tile_spacing))
+	
+	# Get FogOfWarContainer node to add fog of war as children
+	# This keeps the scene organized
+	var parent = get_parent()
+	var fog_container = parent.get_node_or_null("FogOfWarContainer") if parent else null
+	if not fog_container:
+		# Fallback to parent if container doesn't exist
+		fog_container = parent if parent else get_tree().root
+	
+	# Create fog of war around the character
+	map.create_fog_of_war_around(grid_x, grid_z, fog_container)
 
 func _process(delta):
 	# Optional: Add character movement logic here

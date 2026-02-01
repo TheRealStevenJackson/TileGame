@@ -1,0 +1,119 @@
+<svg width="256" height="256" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Enhanced gradient for cloud depth with more contrast -->
+    <linearGradient id="cloudGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#F8F8F8;stop-opacity:0.98" />
+      <stop offset="70%" style="stop-color:#E5E5E5;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#D0D0D0;stop-opacity:0.85" />
+    </linearGradient>
+    
+    <!-- Deep shadow gradient for bottom areas -->
+    <radialGradient id="deepShadow" cx="50%" cy="80%">
+      <stop offset="0%" style="stop-color:#B8B8B8;stop-opacity:0.7" />
+      <stop offset="50%" style="stop-color:#C8C8C8;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#D8D8D8;stop-opacity:0.2" />
+    </radialGradient>
+    
+    <!-- Blue-gray shadow for realistic depth -->
+    <radialGradient id="blueShadow" cx="50%" cy="60%">
+      <stop offset="0%" style="stop-color:#B0B8C0;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#D0D8E0;stop-opacity:0.2" />
+    </radialGradient>
+    
+    <!-- Bright highlight gradient -->
+    <radialGradient id="brightHighlight" cx="40%" cy="30%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Cast shadow beneath cloud -->
+    <radialGradient id="castShadow" cx="50%" cy="100%">
+      <stop offset="0%" style="stop-color:#A0A0A0;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#A0A0A0;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Filter for soft edges -->
+    <filter id="softBlur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
+    </filter>
+    
+    <!-- Stronger blur for shadows -->
+    <filter id="shadowBlur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+    </filter>
+  </defs>
+  
+  <!-- Cast shadow beneath cloud -->
+  <ellipse cx="128" cy="220" rx="100" ry="15" fill="url(#castShadow)" filter="url(#shadowBlur)" opacity="0.6"/>
+  
+  <!-- Base shadow layer for depth -->
+  <ellipse cx="128" cy="150" rx="95" ry="60" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.8"/>
+  
+  <!-- Blue-gray shadow layer for atmospheric depth -->
+  <ellipse cx="128" cy="145" rx="90" ry="55" fill="url(#blueShadow)" filter="url(#softBlur)" opacity="0.7"/>
+  
+  <!-- Main cloud body - large central puff with shadow -->
+  <ellipse cx="128" cy="140" rx="85" ry="50" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.5"/>
+  <ellipse cx="128" cy="128" rx="85" ry="50" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.98"/>
+  
+  <!-- Left side puffs with shadows - pulled in from edge -->
+  <ellipse cx="50" cy="145" rx="48" ry="35" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.4"/>
+  <ellipse cx="50" cy="140" rx="48" ry="35" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.95"/>
+  
+  <ellipse cx="65" cy="130" rx="45" ry="33" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.4"/>
+  <ellipse cx="65" cy="125" rx="45" ry="33" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.9"/>
+  
+  <ellipse cx="40" cy="120" rx="38" ry="30" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.4"/>
+  <ellipse cx="40" cy="115" rx="38" ry="30" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.9"/>
+  
+  <ellipse cx="75" cy="115" rx="38" ry="28" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.3"/>
+  <ellipse cx="75" cy="110" rx="38" ry="28" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.95"/>
+  
+  <!-- Right side puffs with shadows - pulled in from edge -->
+  <ellipse cx="206" cy="145" rx="48" ry="35" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.4"/>
+  <ellipse cx="206" cy="140" rx="48" ry="35" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.95"/>
+  
+  <ellipse cx="191" cy="130" rx="45" ry="33" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.4"/>
+  <ellipse cx="191" cy="125" rx="45" ry="33" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.9"/>
+  
+  <ellipse cx="216" cy="120" rx="38" ry="30" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.4"/>
+  <ellipse cx="216" cy="115" rx="38" ry="30" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.9"/>
+  
+  <ellipse cx="181" cy="115" rx="38" ry="28" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.3"/>
+  <ellipse cx="181" cy="110" rx="38" ry="28" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.95"/>
+  
+  <!-- Top puffs for height with highlights - pulled down from top -->
+  <ellipse cx="95" cy="80" rx="48" ry="35" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.95"/>
+  <ellipse cx="161" cy="80" rx="48" ry="35" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.95"/>
+  <ellipse cx="128" cy="70" rx="45" ry="33" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.95"/>
+  <ellipse cx="60" cy="90" rx="40" ry="30" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.9"/>
+  <ellipse cx="196" cy="90" rx="40" ry="30" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.9"/>
+  <ellipse cx="128" cy="55" rx="35" ry="25" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.9"/>
+  
+  <!-- Bottom puffs for fullness with stronger shadows - pulled up from bottom -->
+  <ellipse cx="85" cy="180" rx="45" ry="33" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.5"/>
+  <ellipse cx="85" cy="175" rx="45" ry="33" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.9"/>
+  
+  <ellipse cx="171" cy="180" rx="45" ry="33" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.5"/>
+  <ellipse cx="171" cy="175" rx="45" ry="33" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.9"/>
+  
+  <ellipse cx="110" cy="190" rx="40" ry="30" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.5"/>
+  <ellipse cx="110" cy="185" rx="40" ry="30" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.9"/>
+  
+  <ellipse cx="146" cy="190" rx="40" ry="30" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.5"/>
+  <ellipse cx="146" cy="185" rx="40" ry="30" fill="url(#cloudGradient)" filter="url(#softBlur)" opacity="0.9"/>
+  
+  <!-- Bright highlights on top for 3D effect -->
+  <ellipse cx="100" cy="85" rx="38" ry="25" fill="url(#brightHighlight)" filter="url(#softBlur)" opacity="0.8"/>
+  <ellipse cx="156" cy="85" rx="38" ry="25" fill="url(#brightHighlight)" filter="url(#softBlur)" opacity="0.8"/>
+  <ellipse cx="128" cy="65" rx="35" ry="22" fill="url(#brightHighlight)" filter="url(#softBlur)" opacity="0.8"/>
+  <ellipse cx="128" cy="50" rx="28" ry="18" fill="url(#brightHighlight)" filter="url(#softBlur)" opacity="0.7"/>
+  
+  <!-- Additional inner shadows for depth between layers -->
+  <ellipse cx="128" cy="155" rx="80" ry="40" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.4"/>
+  <ellipse cx="90" cy="165" rx="35" ry="25" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.4"/>
+  <ellipse cx="166" cy="165" rx="35" ry="25" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.4"/>
+  <ellipse cx="60" cy="150" rx="32" ry="24" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.4"/>
+  <ellipse cx="196" cy="150" rx="32" ry="24" fill="url(#deepShadow)" filter="url(#shadowBlur)" opacity="0.4"/>
+</svg>
