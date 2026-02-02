@@ -3,8 +3,10 @@
 [ext_resource type="Script" path="res://scripts/game_tile.gd" id="1_game_tile"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="2_camera_controller"]
 [ext_resource type="Script" path="res://scripts/character.gd" id="3_character"]
+[ext_resource type="Script" path="res://scripts/node_3d_ui.gd" id="4_ui"]
 
 [node name="Node3D" type="Node3D" unique_id=2001126673]
+script = ExtResource("4_ui")
 
 [node name="GameTile" type="Node3D" parent="."]
 script = ExtResource("1_game_tile")

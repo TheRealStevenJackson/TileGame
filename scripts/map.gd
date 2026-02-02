@@ -1,6 +1,9 @@
 extends Node
 class_name Map
 
+# Preload enemy script to use Enemy type
+const Enemy = preload("res://scripts/enemy.gd")
+
 # 2D tile registry: Dictionary<Vector2, GameTile>
 # Key is grid coordinates (x, z), value is the GameTile instance
 var tile_registry: Dictionary = {}
@@ -9,6 +12,10 @@ var tile_spacing: float = 1.2  # Spacing between tiles
 # 2D fog of war registry: Dictionary<Vector2, FogOfWar>
 # Key is grid coordinates (x, z), value is the FogOfWar instance
 var fog_of_war_registry: Dictionary = {}
+
+# 2D enemy registry: Dictionary<Vector2, Enemy>
+# Key is grid coordinates (x, z), value is the Enemy instance
+var enemy_registry: Dictionary = {}
 
 func get_tile_at(grid_x: int, grid_z: int) -> GameTile:
 	# Get tile at specific grid coordinates
@@ -133,3 +140,172 @@ func create_fog_of_war_around(grid_x: int, grid_z: int, parent_node: Node):
 			register_fog_of_war(fog, x, z)
 			
 			print("Created fog of war at grid (", x, ", ", z, ") world pos: ", fog.global_position)
+
+# Enemy management functions
+func get_enemy_at(grid_x: int, grid_z: int) -> Enemy:
+	# Get enemy at specific grid coordinates
+	var grid_key = Vector2(grid_x, grid_z)
+	if enemy_registry.has(grid_key):
+		return enemy_registry[grid_key]
+	return null
+
+func register_enemy(enemy: Enemy, grid_x: int, grid_z: int):
+	# Register an enemy in the 2D registry
+	var grid_key = Vector2(grid_x, grid_z)
+	enemy_registry[grid_key] = enemy
+	print("Registered enemy at grid (", grid_x, ", ", grid_z, ")")
+
+func unregister_enemy(grid_x: int, grid_z: int):
+	# Unregister an enemy from the registry
+	var grid_key = Vector2(grid_x, grid_z)
+	if enemy_registry.has(grid_key):
+		enemy_registry.erase(grid_key)
+		print("Unregistered enemy at grid (", grid_x, ", ", grid_z, ")")
+
+func is_tile_occupied(grid_x: int, grid_z: int) -> bool:
+	# Check if a tile is occupied by the player or any enemy
+	var tile = get_tile_at(grid_x, grid_z)
+	if not tile:
+		return false
+	
+	# Check if player is on this tile by checking if character's current tile matches
+	var character = _find_character_in_scene()
+	if character and character.current_tile == tile:
+		return true
+	
+	# Check if any enemy is on this tile
+	if get_enemy_at(grid_x, grid_z):
+		return true
+	
+	return false
+
+func _find_character_in_scene() -> Character:
+	# Find the Character node in the scene tree
+	var root = get_tree().root
+	return _find_character_recursive(root)
+
+func _find_character_recursive(node: Node) -> Character:
+	# Recursively search for Character node
+	if node is Character:
+		return node as Character
+	for child in node.get_children():
+		var result = _find_character_recursive(child)
+		if result:
+			return result
+	return null
+
+func spawn_enemy_at(grid_x: int, grid_z: int, parent_node: Node) -> Enemy:
+	# Spawn an enemy at specific grid coordinates
+	# Only spawn if there's a tile and fog, and tile is not occupied
+	var tile = get_tile_at(grid_x, grid_z)
+	if not tile or is_tile_occupied(grid_x, grid_z):
+		return null
+	
+	var fog = get_fog_of_war_at(grid_x, grid_z)
+	if not fog or not fog.cloud_sprite.visible:
+		# Only spawn in visible fog on existing tiles
+		return null
+	
+	# Create enemy instance
+	var enemy = Enemy.new()
+	
+	# Set current tile
+	enemy.current_tile = tile
+	
+	# Calculate world position
+	var world_x = grid_x * tile_spacing
+	var world_z = grid_z * tile_spacing
+	enemy.global_position = Vector3(world_x, 0, world_z)
+	
+	# Add to scene
+	parent_node.add_child(enemy)
+	
+	# Connect enemy death signal to turn manager
+	var turn_manager = get_node_or_null("/root/TurnManager")
+	if turn_manager:
+		enemy.enemy_died.connect(turn_manager._on_enemy_died)
+	
+	# Register enemy
+	register_enemy(enemy, grid_x, grid_z)
+	
+	print("Spawned enemy at grid (", grid_x, ", ", grid_z, ")")
+	return enemy
+
+func get_all_enemies() -> Array:
+	# Return all enemies in the registry
+	return enemy_registry.values()
+
+func perform_enemy_turns():
+	# Make all enemies perform their turn
+	for enemy in get_all_enemies():
+		if is_instance_valid(enemy):
+			await enemy.perform_turn()
+
+func get_adjacent_enemies(grid_x: int, grid_z: int) -> Array:
+	# Return array of enemies adjacent to the given grid position
+	var adjacent_enemies = []
+	
+	# Check all 8 adjacent positions (including diagonals)
+	for dx in [-1, 0, 1]:
+		for dz in [-1, 0, 1]:
+			if dx == 0 and dz == 0:
+				continue  # Skip center position
+			
+			var check_x = grid_x + dx
+			var check_z = grid_z + dz
+			var enemy = get_enemy_at(check_x, check_z)
+			if enemy:
+				adjacent_enemies.append(enemy)
+	
+	return adjacent_enemies
+
+func place_random_items():
+	# Place random interactive items on tiles
+	var tiles = tile_registry.values()
+	
+	# Shuffle the tiles for random placement
+	tiles.shuffle()
+	
+	var items_placed = 0
+	var max_items = 8  # Place up to 8 items
+	
+	for tile in tiles:
+		if items_placed >= max_items:
+			break
+		
+		# Skip tiles that are too close to the center (starting area)
+		var distance_from_center = abs(tile.grid_x) + abs(tile.grid_z)
+		if distance_from_center < 3:
+			continue
+		
+		# Random chance to place an item
+		if randf() < 0.15:  # 15% chance per eligible tile
+			var item_type = _get_random_item_type()
+			tile.set_interactive_item(item_type)
+			items_placed += 1
+			print("Placed ", _get_item_name(item_type), " at (", tile.grid_x, ", ", tile.grid_z, ")")
+
+func _get_random_item_type():
+	# Return a random item type with weighted probabilities
+	var rand = randf()
+	if rand < 0.4:  # 40% chance
+		return GameTile.ItemType.KEY
+	elif rand < 0.7:  # 30% chance
+		return GameTile.ItemType.CARD
+	elif rand < 0.9:  # 20% chance
+		return GameTile.ItemType.SHOPKEEPER
+	else:  # 10% chance
+		return GameTile.ItemType.BOSS_DOOR
+
+func _get_item_name(item_type):
+	# Get human-readable name for item type
+	match item_type:
+		GameTile.ItemType.KEY:
+			return "Key"
+		GameTile.ItemType.CARD:
+			return "Card"
+		GameTile.ItemType.SHOPKEEPER:
+			return "Shopkeeper"
+		GameTile.ItemType.BOSS_DOOR:
+			return "Boss Door"
+	return "Unknown"

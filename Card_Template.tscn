@@ -1,27 +1,29 @@
-[gd_scene format=3 uid="uid://dxckynhcj7twg"]
+[gd_scene format=3 uid="uid://cn0pqhakjovc6"]
 
 [ext_resource type="Script" uid="uid://do6u1j8eqdoxd" path="res://Card Scripts/CardLoader.gd" id="1_dd2wi"]
 [ext_resource type="Resource" uid="uid://card002" path="res://card data/card_002.tres" id="2_kwle2"]
 [ext_resource type="Texture2D" uid="uid://d0k03vwjwygc4" path="res://SpriteSources/tiles_items.png" id="3_qh7ip"]
+[ext_resource type="Resource" uid="uid://c7u7iht2kmepq" path="res://ResourceIcons.tres" id="4_rsrc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
-bg_color = Color(0.18, 0.17, 0.15, 1)
+bg_color = Color(0.9, 0.9, 0.9, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.35, 0.32, 0.28, 1)
+border_color = Color(0.4, 0.4, 0.4, 1)
 corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
 
 [node name="Card" type="MarginContainer" unique_id=105971281]
-custom_minimum_size = Vector2(160, 175)
+custom_minimum_size = Vector2(250, 175)
 offset_right = 154.0
 offset_bottom = 275.0
 script = ExtResource("1_dd2wi")
 data = ExtResource("2_kwle2")
+resource_icons = ExtResource("4_rsrc")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1707075848]
 layout_mode = 2
@@ -32,9 +34,20 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="PanelContainer/VBoxContainer" unique_id=410636347]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 20
 text = "Title"
 horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 uppercase = true
+max_lines_visible = 2
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer" unique_id=1933183078]
 custom_minimum_size = Vector2(100, 150)
@@ -119,3 +132,5 @@ position = Vector2(58, 13)
 texture = ExtResource("3_qh7ip")
 region_enabled = true
 region_rect = Rect2(112, 64, 16, 16)
+
+

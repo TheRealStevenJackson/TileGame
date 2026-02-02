@@ -8,6 +8,19 @@ var map: Map
 var grid_x: int = 0
 var grid_z: int = 0
 
+# Interactive item system
+enum ItemType {
+	NONE,
+	KEY,
+	CARD,
+	SHOPKEEPER,
+	BOSS_DOOR
+}
+
+var interactive_item: ItemType = ItemType.NONE
+var item_sprite: Sprite3D
+var item_label: Label3D
+
 # References to the arrow sprites
 var right_arrow: Sprite3D
 var left_arrow: Sprite3D
@@ -298,6 +311,12 @@ func _set_arrow_hovered(direction: String, hovered: bool):
 			arrow.modulate = Color.WHITE
 
 func on_arrow_click(direction: String):
+	# Check if player can move
+	var turn_manager = get_node_or_null("/root/TurnManager")
+	if turn_manager and not turn_manager.can_player_move():
+		print("Cannot move - not player's turn or already moved")
+		return
+	
 	# Calculate grid coordinates for the new tile
 	var new_grid_x = grid_x
 	var new_grid_z = grid_z
@@ -319,6 +338,11 @@ func on_arrow_click(direction: String):
 	
 	var existing_tile = map.get_tile_at(new_grid_x, new_grid_z)
 	if existing_tile:
+		# Check if the tile is occupied by an enemy
+		if map.is_tile_occupied(new_grid_x, new_grid_z):
+			print("Cannot move to occupied tile at grid position (", new_grid_x, ", ", new_grid_z, ")")
+			return
+		
 		print("Tile already exists at grid position (", new_grid_x, ", ", new_grid_z, ") - not creating duplicate")
 		# Move character to existing tile instead of creating a new one
 		var character = _find_character_in_scene()
@@ -369,6 +393,157 @@ func unregister_tile():
 		map.unregister_tile(self)
 	else:
 		print("Warning: Cannot unregister tile - Map instance not found")
+
+func set_interactive_item(item_type: ItemType):
+	# Set an interactive item on this tile
+	interactive_item = item_type
+	
+	# Create visual representation
+	if item_type != ItemType.NONE:
+		_create_item_visual()
+	else:
+		_remove_item_visual()
+
+func _create_item_visual():
+	# Create visual representation for the item
+	if item_sprite:
+		item_sprite.queue_free()
+	if item_label:
+		item_label.queue_free()
+	
+	# Create sprite for the item
+	item_sprite = Sprite3D.new()
+	add_child(item_sprite)
+	
+	# Set sprite properties based on item type
+	match interactive_item:
+		ItemType.KEY:
+			item_sprite.texture = load("res://assets/character_sprite.svg")  # Placeholder
+			item_sprite.modulate = Color.GOLD
+		ItemType.CARD:
+			item_sprite.texture = load("res://assets/character_sprite.svg")  # Placeholder
+			item_sprite.modulate = Color.BLUE
+		ItemType.SHOPKEEPER:
+			item_sprite.texture = load("res://assets/character_sprite.svg")  # Placeholder
+			item_sprite.modulate = Color.GREEN
+		ItemType.BOSS_DOOR:
+			item_sprite.texture = load("res://assets/character_sprite.svg")  # Placeholder
+			item_sprite.modulate = Color.PURPLE
+	
+	item_sprite.pixel_size = 0.005
+	item_sprite.position = Vector3(0, 0.2, 0)  # Float above tile
+	item_sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	
+	# Create label for item type
+	item_label = Label3D.new()
+	add_child(item_label)
+	
+	match interactive_item:
+		ItemType.KEY:
+			item_label.text = "KEY"
+		ItemType.CARD:
+			item_label.text = "CARD"
+		ItemType.SHOPKEEPER:
+			item_label.text = "SHOP"
+		ItemType.BOSS_DOOR:
+			item_label.text = "BOSS DOOR"
+	
+	item_label.font_size = 32
+	item_label.position = Vector3(0, 0.4, 0)
+	item_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+
+func _remove_item_visual():
+	# Remove visual representation
+	if item_sprite:
+		item_sprite.queue_free()
+		item_sprite = null
+	if item_label:
+		item_label.queue_free()
+		item_label = null
+
+func interact_with_item():
+	# Handle interaction when player moves onto this tile
+	match interactive_item:
+		ItemType.KEY:
+			_collect_key()
+		ItemType.CARD:
+			_collect_card()
+		ItemType.SHOPKEEPER:
+			_open_shop()
+		ItemType.BOSS_DOOR:
+			_try_open_boss_door()
+
+func _collect_key():
+	print("Player found a key!")
+	var player_resources = get_node_or_null("/root/PlayerResources")
+	if player_resources:
+		player_resources.keys += 1
+		player_resources.resources_changed.emit()
+		print("Keys collected: ", player_resources.keys)
+	
+	# Remove the item
+	set_interactive_item(ItemType.NONE)
+
+func _collect_card():
+	print("Player found a card!")
+	# Draw an additional card
+	var card_hand = _find_card_hand()
+	if card_hand and card_hand.has_method("draw_additional_cards"):
+		card_hand.draw_additional_cards(1)
+		print("Drew 1 additional card")
+	
+	# Remove the item
+	set_interactive_item(ItemType.NONE)
+
+func _open_shop():
+	print("Player encountered shopkeeper!")
+	# Open the shop UI
+	var ui = _find_ui()
+	if ui and ui.has_method("_show_shop"):
+		ui._show_shop()
+	
+	# Remove the shopkeeper after interaction
+	set_interactive_item(ItemType.NONE)
+
+func _try_open_boss_door():
+	var player_resources = get_node_or_null("/root/PlayerResources")
+	if player_resources and player_resources.keys > 0:
+		player_resources.keys -= 1
+		player_resources.resources_changed.emit()
+		print("Player used a key to open the boss door!")
+		set_interactive_item(ItemType.NONE)
+	else:
+		print("Boss door is locked! Need a key to open it.")
+
+func _find_card_hand():
+	# Find the card hand container
+	var root = get_tree().root
+	return _find_card_hand_recursive(root)
+
+func _find_card_hand_recursive(node: Node):
+	# Recursively search for Card_Hand_Container
+	if node.get_script() and node.get_script().resource_path.ends_with("Card_Hand_Container.gd"):
+		return node
+	for child in node.get_children():
+		var result = _find_card_hand_recursive(child)
+		if result:
+			return result
+	return null
+
+func _find_ui():
+	# Find the UI script
+	var root = get_tree().root
+	return _find_ui_recursive(root)
+
+func _find_ui_recursive(node: Node):
+	# Recursively search for node_3d_ui script
+	if node.get_script() and node.get_script().resource_path.ends_with("node_3d_ui.gd"):
+		return node
+	for child in node.get_children():
+		var result = _find_ui_recursive(child)
+		if result:
+			return result
+	return null
 
 func _exit_tree():
 	# Clean up: unregister tile when removed from scene

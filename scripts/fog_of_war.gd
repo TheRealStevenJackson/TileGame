@@ -48,7 +48,7 @@ func _ready():
 	cloud_sprite.visible = initial_visible
 	cloud_sprite.modulate = Color.WHITE  # Initialize to full opacity
 	
-	print("Fog of war created at position: ", global_position, " sprite at y: ", cloud_sprite.position.y)
+	#print("Fog of war created at position: ", global_position, " sprite at y: ", cloud_sprite.position.y)
 
 func fade_out(duration: float = 0.5):
 	# Animate the fog of war becoming invisible

@@ -11,13 +11,15 @@ config_version=5
 [application]
 
 config/name="TileGame"
-run/main_scene="uid://m2j3s4by1ecg"
+run/main_scene="uid://d0jtb7tuxdjjc"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://assets/icon.svg"
 
 [autoload]
 
 GameMap="*res://scripts/map.gd"
+PlayerResources="*res://scripts/player_resources.gd"
+TurnManager="*res://scripts/turn_manager.gd"
 
 [physics]
 

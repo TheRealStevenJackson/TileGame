@@ -1,5 +1,8 @@
 extends MarginContainer
 
+## Emitted when the card is clicked (played). Passes the card data.
+signal card_played(card_data: CardData)
+
 ## Assign in inspector or leave null to use res://ResourceIcons.tres.
 ## ResourceIcons (extends Sprite2D) holds icon refs with region_rect for sprite sheets.
 @export var resource_icons: Variant
@@ -8,21 +11,55 @@ extends MarginContainer
 @export var data: CardData:
 	set(value):
 		data = value
-		if is_inside_tree():
-			update_ui()
+		update_ui()
 
 var _icons: Variant
 
-func _ready():
+func _ready() -> void:
+	mouse_filter = Control.MOUSE_FILTER_STOP
+	gui_input.connect(_on_gui_input)
+
 	update_ui()
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		var mb := event as InputEventMouseButton
+		if mb.pressed and mb.button_index == MOUSE_BUTTON_LEFT:
+			_on_card_clicked()
+
+func _on_card_clicked() -> void:
+	if not data:
+		return
+	
+	# Check if player can play a card
+	var turn_manager = get_node_or_null("/root/TurnManager")
+	if turn_manager and not turn_manager.can_player_play_card():
+		print("Cannot play card - already moved this turn")
+		return
+	
+	var pr = get_node_or_null("/root/PlayerResources")
+	if pr and pr.has_method("add_resources"):
+		pr.add_resources(data.physical_damage_gen, data.money_gen, data.mana_gen)
+	
+	# Notify TurnManager that player played a card
+	if turn_manager and turn_manager.has_method("player_played_card"):
+		turn_manager.player_played_card()
+	
+	# End turn immediately when playing a card (as per requirements)
+	if turn_manager and turn_manager.has_method("end_player_turn"):
+		turn_manager.end_player_turn()
+	
+	card_played.emit(data)
 
 func update_ui():
 	if not data:
 		return
-	var vbox: Control = get_node_or_null("PanelContainer/VBoxContainer") if has_node("PanelContainer/VBoxContainer") else get_node_or_null("VBoxContainer")
+	var vbox: Control = get_node_or_null("PanelContainer/VBoxContainer") if has_node("PanelContainer/VBoxContainer") else get_node_or_null("VBoxContainer") if has_node("VBoxContainer") else get_node_or_null("NinePatchRect/VBoxContainer")
 	if not vbox:
 		return
-	vbox.get_node("Title").text = data.title
+	var title_node = get_node_or_null("Title") if has_node("Title") else vbox.get_node_or_null("Title")
+	if title_node:
+		title_node.text = data.title
 	vbox.get_node("Description").text = data.description
 	var ill := vbox.get_node_or_null("TextureRect")
 	if ill and data.texture_slice:
@@ -36,7 +73,7 @@ func update_ui():
 		var cost_node := cost_hbox.get_node_or_null("Cost")
 		if cost_node:
 			cost_node.text = str(data.cost)
-	var gen_container := vbox.get_node_or_null("GenContainer")
+	var gen_container := get_node_or_null("GenContainer") if has_node("GenContainer") else vbox.get_node_or_null("GenContainer") if vbox.has_node("GenContainer") else vbox.get_node_or_null("ResourcesGenerated")
 	if gen_container:
 		var icon_pd = _icons.icon_physical_damage if _icons else null
 		var icon_money = _icons.icon_money if _icons else null
@@ -47,9 +84,6 @@ func update_ui():
 
 func _set_gen_row(row: Control, value: int, icon: Variant) -> void:
 	if not row:
-		return
-	row.visible = value > 0
-	if value <= 0:
 		return
 	var icon_node := row.get_node_or_null("Icon")
 	if not icon_node:
@@ -70,4 +104,4 @@ func _set_gen_row(row: Control, value: int, icon: Variant) -> void:
 				icon_node.region_rect = icon.region_rect
 	var value_label := row.get_node_or_null("Value")
 	if value_label:
-		value_label.text = "+%d" % value
+		value_label.text = str(value)

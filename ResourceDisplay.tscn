@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://resource_display_001"]
+
+[ext_resource type="Script" path="res://scripts/resource_display.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.12, 0.12, 0.14, 0.9)
+border_width_left = 15  
+border_width_top = 2
+border_width_right = 15
+border_width_bottom = 2
+border_color = Color(0.3, 0.3, 0.35, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="ResourceDisplay" type="CanvasLayer"]
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=1]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 80.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+script = ExtResource("1_script")
+
+[node name="HBox" type="HBoxContainer" parent="Panel" unique_id=2]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="PDRow" type="HBoxContainer" parent="Panel/HBox" unique_id=3]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="PDLabel" type="Label" parent="Panel/HBox/PDRow" unique_id=4]
+layout_mode = 2
+text = "Damage:"
+
+[node name="PDValue" type="Label" parent="Panel/HBox/PDRow" unique_id=5]
+layout_mode = 2
+text = "0"
+
+[node name="MoneyRow" type="HBoxContainer" parent="Panel/HBox" unique_id=6]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="MoneyLabel" type="Label" parent="Panel/HBox/MoneyRow" unique_id=7]
+layout_mode = 2
+text = "💰"
+
+[node name="MoneyValue" type="Label" parent="Panel/HBox/MoneyRow" unique_id=8]
+layout_mode = 2
+text = "0"
+
+[node name="ManaRow" type="HBoxContainer" parent="Panel/HBox" unique_id=9]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ManaLabel" type="Label" parent="Panel/HBox/ManaRow" unique_id=10]
+layout_mode = 2
+text = "Mana:"
+
+[node name="ManaValue" type="Label" parent="Panel/HBox/ManaRow" unique_id=11]
+layout_mode = 2
+text = "0"
+
+[node name="KeysRow" type="HBoxContainer" parent="Panel/HBox" unique_id=12]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="KeysLabel" type="Label" parent="Panel/HBox/KeysRow" unique_id=13]
+layout_mode = 2
+text = "🗝️"
+
+[node name="KeysValue" type="Label" parent="Panel/HBox/KeysRow" unique_id=14]
+layout_mode = 2
+text = "0"

@@ -4,6 +4,13 @@ class_name Character
 # Movement speed
 @export var move_speed: float = 3.0
 
+# Player stats
+@export var health: int = 20
+@export var max_health: int = 20
+
+# Signals
+signal health_changed(current_health: int, max_health: int)
+
 # Reference to the current GameTile the character is on
 @export var current_tile_path: NodePath
 var current_tile: GameTile
@@ -145,6 +152,19 @@ func move_to_tile(tile: GameTile, duration: float = 0.5):
 	# Update arrow visibility after movement completes
 	await tween.finished
 	update_tile_arrows()
+	
+	# Check for interactive items on the new tile
+	if tile.has_method("interact_with_item"):
+		tile.interact_with_item()
+	
+	# Notify TurnManager that player moved
+	var turn_manager = get_node_or_null("/root/TurnManager")
+	if turn_manager:
+		turn_manager.player_moved()
+		turn_manager.end_player_turn()
+	
+	# Spawn enemies in newly revealed fog
+	spawn_enemies_in_fog()
 
 func create_surrounding_fog_of_war():
 	# Create fog of war tiles surrounding the character's current position
@@ -180,3 +200,56 @@ func _process(delta):
 	if current_tile != previous_tile:
 		update_tile_arrows()
 	pass
+
+func _flash_attack_effect() -> void:
+	# Visual feedback when attacking: brief white flash
+	if sprite_3d:
+		var original_color = sprite_3d.modulate
+		sprite_3d.modulate = Color(1.5, 1.5, 1.5, 1.0)  # Bright white flash
+		var tween = create_tween()
+		tween.tween_property(sprite_3d, "modulate", original_color, 0.2)
+
+func take_damage(damage: int):
+	health -= damage
+	
+	# Visual feedback: flash red when taking damage
+	if sprite_3d:
+		var original_color = sprite_3d.modulate
+		sprite_3d.modulate = Color(2.0, 0.5, 0.5, 1.0)  # Bright red flash
+		var tween = create_tween()
+		tween.tween_property(sprite_3d, "modulate", original_color, 0.3)
+	
+	print("Player took ", damage, " damage. Health: ", health, "/", max_health)
+	emit_signal("health_changed", health, max_health)
+	if health <= 0:
+		# Player dies - could add game over logic here
+		print("Player died!")
+		# For now, just prevent negative health
+		health = 0
+
+func spawn_enemies_in_fog():
+	# Spawn enemies on tiles that have fog (fog-covered tiles)
+	var map = GameMap
+	if not map or not current_tile:
+		return
+	
+	# Get EnemyContainer or parent
+	var parent = get_parent()
+	var enemy_container = parent.get_node_or_null("EnemyContainer")
+	if not enemy_container:
+		enemy_container = parent if parent else get_tree().root
+	
+	# Check tiles within spawn radius that have fog
+	var grid_x = current_tile.grid_x
+	var grid_z = current_tile.grid_z
+	var spawn_radius = 4  # Check within this radius
+	
+	for x in range(grid_x - spawn_radius, grid_x + spawn_radius + 1):
+		for z in range(grid_z - spawn_radius, grid_z + spawn_radius + 1):
+			var tile = map.get_tile_at(x, z)
+			if tile:  # Only spawn on existing tiles
+				var fog = map.get_fog_of_war_at(x, z)
+				if fog and fog.cloud_sprite.visible:
+					# Tile has fog, chance to spawn enemy
+					if randf() < 0.2:  # 20% chance to spawn enemy on fogged tiles
+						map.spawn_enemy_at(x, z, enemy_container)
